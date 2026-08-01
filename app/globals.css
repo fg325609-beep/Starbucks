@@ -1,0 +1,190 @@
+@import "tailwindcss";
+@import "aos/dist/aos.css";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                       */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Deep pine greens — brand-authentic, used for dark sections & text */
+  --color-pine-950: #07211a;
+  --color-pine-900: #0a2e23;
+  --color-pine-800: #0e3d2e;
+  --color-pine-700: #124e3a;
+
+  /* Interactive brand green */
+  --color-brand-600: #0c6b4d;
+  --color-brand-500: #128159;
+  --color-brand-400: #1c9c6c;
+
+  /* Gold — used sparingly for premium / rewards touches */
+  --color-gold-500: #c6a15c;
+  --color-gold-400: #d8ba7c;
+  --color-gold-300: #e8d3a3;
+
+  /* Warm cream + ink */
+  --color-cream-50: #faf6ec;
+  --color-cream-100: #f2ead6;
+  --color-cream-200: #e8dcc0;
+  --color-ink-900: #1b1811;
+  --color-ink-700: #453f31;
+  --color-ink-500: #6b6252;
+
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-jakarta);
+}
+
+@theme inline {
+  --color-pine-950: var(--color-pine-950);
+  --color-pine-900: var(--color-pine-900);
+  --color-pine-800: var(--color-pine-800);
+  --color-pine-700: var(--color-pine-700);
+  --color-brand-600: var(--color-brand-600);
+  --color-brand-500: var(--color-brand-500);
+  --color-brand-400: var(--color-brand-400);
+  --color-gold-500: var(--color-gold-500);
+  --color-gold-400: var(--color-gold-400);
+  --color-gold-300: var(--color-gold-300);
+  --color-cream-50: var(--color-cream-50);
+  --color-cream-100: var(--color-cream-100);
+  --color-cream-200: var(--color-cream-200);
+  --color-ink-900: var(--color-ink-900);
+  --color-ink-700: var(--color-ink-700);
+  --color-ink-500: var(--color-ink-500);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                 */
+/* ------------------------------------------------------------------ */
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream-50);
+  color: var(--color-ink-900);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-gold-400);
+  color: var(--color-pine-950);
+}
+
+/* ------------------------------------------------------------------ */
+/* Signature motion — steam wisps                                      */
+/* Used throughout as the site's throughline motif (hero, cards, nav)  */
+/* ------------------------------------------------------------------ */
+@keyframes steam-rise {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(-45%) scaleX(1.15);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateY(-95%) scaleX(0.85);
+    opacity: 0;
+  }
+}
+
+.steam-wisp {
+  animation: steam-rise 3.6s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.steam-wisp:nth-child(2) {
+  animation-delay: 0.7s;
+}
+.steam-wisp:nth-child(3) {
+  animation-delay: 1.4s;
+}
+
+@keyframes blob-morph {
+  0%,
+  100% {
+    border-radius: 44% 56% 62% 38% / 42% 40% 60% 58%;
+  }
+  34% {
+    border-radius: 62% 38% 45% 55% / 55% 62% 38% 45%;
+  }
+  67% {
+    border-radius: 38% 62% 55% 45% / 48% 35% 65% 52%;
+  }
+}
+
+.blob-shape {
+  animation: blob-morph 12s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    100deg,
+    var(--color-gold-300) 20%,
+    var(--color-gold-500) 40%,
+    var(--color-gold-300) 60%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(3deg);
+  }
+}
+
+.float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@keyframes bean-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bean-spin-hover:hover .bean-spin-target {
+  animation: bean-spin 0.7s ease-in-out;
+}
+
+/* Reduced motion — respected across all custom animation above */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus visibility kept intentional, not suppressed */
+:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+}
